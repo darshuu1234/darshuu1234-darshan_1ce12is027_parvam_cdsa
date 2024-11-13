@@ -18,7 +18,7 @@ int main()
     Node root=NULL;
     while(1){
         int x=0;
-        printf("\nPress 1 to insert 2 to delete 3 to display");
+        printf("\nPress 1 to insert 2 to delete 3 to display\n");
         scanf("%d",&choice);
         switch(choice)
         {
@@ -39,15 +39,18 @@ Node delete(Node root)
 {
     if(root==NULL)
     {
-        printf("the list is empty\n");
+        printf("the Queue is empty\n");
         exit(1);
     }
     else
     {
-        Node temp=root;
-        printf("deleted node %d",temp->data);
-        root=root->next;
-        free(temp);
+        Node temp=root,del=NULL;
+        while(temp->next->next!=NULL)
+            temp=temp->next;
+        del=temp->next;
+        printf("deleted node %d",del->data);
+        temp->next=NULL;
+        free(del);
         return root;
     }
 }
@@ -62,20 +65,18 @@ Node add(Node root,int x)
     }
     else
     {
-        Node temp=root,newnode;
-        while(temp->next!=NULL)
-            temp=temp->next;
+        Node newnode;
+        
         newnode=(Node)malloc(sizeof(struct node));
         newnode->data=x;
-        newnode->next=NULL;
-        temp->next=newnode;
-        return root;
+        newnode->next=root;
+        return newnode;
     }
 }
 void display(Node root)
 {
     if(root==NULL)
-        printf("List is empty\n");
+        printf("Queue is empty\n");
     else
     {
         
@@ -85,26 +86,4 @@ void display(Node root)
             root=root->next;
         }
     }
-}+
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
